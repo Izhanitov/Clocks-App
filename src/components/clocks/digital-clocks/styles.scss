@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "digital-7-2";
+  src: url("../../../../public/fonts/digital-7-2.woff") format("woff"), /* Modern Browsers */
+        url("../../../../public/fonts/digital-7-2.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+.digital-clocks {
+  font-family: "digital-7-2";
+  font-size: 36px;
+  text-align: center;
+  color: rgb(119, 119, 119);
+}
