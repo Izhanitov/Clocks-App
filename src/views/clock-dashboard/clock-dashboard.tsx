@@ -10,6 +10,8 @@ import ErrorComponent from "../../components/error-component/error-component";
 import './styles.scss';
 
 
+const CLOCKS_NUMBER = 2;
+
 const ClockDashboard = () => {
     const dispatch = useDispatch();
 
@@ -47,8 +49,7 @@ const ClockDashboard = () => {
 
     return(
         <div className='dashboard-container'>
-            <Clocks key={`hours-1`} date={date} />
-            <Clocks key={`hours-2`} date={date} />
+            {new Array(CLOCKS_NUMBER).fill(0).map((_, index) => <Clocks key={`hours-${index}`} date={date} />)}
         </div>
     )
 }
