@@ -1,13 +1,16 @@
 import React from "react";
 
 
+const CLOCK_RADIUS = 200;
+const STROKE_WIDTH = 5;
+
 const ClockStrokes = () => {
     const getStorkeLeft = (index: number) => {
-        return -100 * Math.cos(Math.PI / 2 + (Math.PI / 6 * index));
+        return -CLOCK_RADIUS/2 * Math.cos(Math.PI / 2 + (Math.PI / 6 * index));
     }
 
     const getStorkeTop = (index: number) => {
-        return -100 * Math.sin(Math.PI / 2 + (Math.PI / 6 * index));
+        return -CLOCK_RADIUS/2 * Math.sin(Math.PI / 2 + (Math.PI / 6 * index));
     }
 
     return (
@@ -17,7 +20,7 @@ const ClockStrokes = () => {
                     key={'clock-stoke-' + index}
                     style={{
                         transform: `rotate(${(360 / 12) * index}deg)`,
-                        left: `calc(50% - 2.5px + ${getStorkeLeft(index)}px)`,
+                        left: `calc(50% - ${STROKE_WIDTH/2}px + ${getStorkeLeft(index)}px)`,
                         top: `calc(50% + ${getStorkeTop(index)}px)`
                     }}
                 >

@@ -17,7 +17,7 @@ const DigitalClocks = (Props: DigitalClocksProps) => {
     } = Props;
 
     const correctNums = (nums: number) => {
-        return nums < 10 ? '0' + nums : nums;
+        return String(nums).padStart(2, '0');
     }
 
     return (
