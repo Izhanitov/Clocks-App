@@ -11,8 +11,10 @@ import DigitalClocks from "./digital-clocks/digital-clocks";
 import './styles.scss';
 
 
+const HOURS_TO_MS = 3600000;
+
 interface ClocksProps {
-    date: Date;   
+    date: number;   
 }
 
 const Clocks = (Props: ClocksProps) => {
@@ -36,11 +38,20 @@ const Clocks = (Props: ClocksProps) => {
             key: timeZone.timezone
         }));
     }, [timezones])
+        
+    const dateWithTimezone = new Date(date + (HOURS_TO_MS * selectedTimezone))
 
     return (
         <div className='clocks-container'>
-            <AnalogClocks hours={date.getUTCHours() + selectedTimezone} minutes={date.getMinutes()} seconds={date.getSeconds()} />
-            <DigitalClocks hours={date.getUTCHours() + selectedTimezone} minutes={date.getMinutes()} seconds={date.getSeconds()} />
+            <AnalogClocks 
+                hours={dateWithTimezone.getHours()} 
+                minutes={dateWithTimezone.getMinutes()} 
+                seconds={dateWithTimezone.getSeconds()} 
+            />
+            <DigitalClocks 
+                hours={dateWithTimezone.getHours()} 
+                minutes={dateWithTimezone.getMinutes()} 
+                seconds={dateWithTimezone.getSeconds()} />
             <DropdownMenu menuItems={menuItems} onMenuItemClick={onMenuItemClick} />
         </div>
     )

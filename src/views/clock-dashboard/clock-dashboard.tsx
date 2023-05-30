@@ -11,6 +11,7 @@ import './styles.scss';
 
 
 const CLOCKS_NUMBER = 2;
+const MINUTES_TO_MS = -60000;
 
 const ClockDashboard = () => {
     const dispatch = useDispatch();
@@ -22,11 +23,18 @@ const ClockDashboard = () => {
     const [date, setDate] = useState<Date>(new Date());
 
     const provider: ITimezoneProvider = useMemo(() => new TimeZoneProvider(), []);
-
+  
     useEffect(() => {
-        const interval = setInterval(() => {
+        let interval: NodeJS.Timer;
+
+        setTimeout(() => {            
             setDate(new Date());
-        }, 1000);   
+
+            interval = setInterval(() => {
+                setDate(new Date());
+            }, 1000); 
+
+    }, 1000 - new Date().getUTCMilliseconds());
 
         return () => clearInterval(interval);
     }, [])
@@ -41,6 +49,8 @@ const ClockDashboard = () => {
         .catch(() => setIsError(true));
     }, [dispatch, loadTimezones, provider])
 
+    const timestamp = date.getTime() - date.getTimezoneOffset()*MINUTES_TO_MS;
+
     if(isError) {
         return <ErrorComponent />
     }
@@ -51,7 +61,7 @@ const ClockDashboard = () => {
 
     return(
         <div className='dashboard-container'>
-            {new Array(CLOCKS_NUMBER).fill(0).map((_, index) => <Clocks key={`hours-${index}`} date={date} />)}
+            {new Array(CLOCKS_NUMBER).fill(0).map((_, index) => <Clocks key={`hours-${index}`} date={timestamp} />)}
         </div>
     )
 }
