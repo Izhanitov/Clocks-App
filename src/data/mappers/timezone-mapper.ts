@@ -2,16 +2,17 @@ import { TimezoneResponceDto, TimezoneDto } from "../models/timezone-models";
 
 
 export const timeZoneMapper = (responceData: TimezoneResponceDto[]): TimezoneDto[] => {
-    const mappedData: TimezoneDto[] = [];
+    return responceData.map((elem) => {
+        let timeZoneValue = parseInt(elem.timezone);
+        
+        if(!Number.isInteger(timeZoneValue)) {
+            throw new Error('Ошибка');
+        }
 
-    responceData.map(elem => 
-        mappedData.push(
-            {
-                name: elem.name ?? elem.name,
-                timezone: elem.timezone ? parseInt(elem.timezone) : 0
-            } 
-        )
-    )
-
-    return mappedData;
+        return {
+                name: elem.name,
+                timezone: timeZoneValue
+            };
+        }
+    );
 };
