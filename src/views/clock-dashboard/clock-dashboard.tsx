@@ -26,8 +26,12 @@ const ClockDashboard = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setDate(new Date());
-        }, 1000);
-        
+        }, 1000);   
+
+        return () => clearInterval(interval);
+    }, [])
+
+    useEffect(() => {
         provider.getTimeZone()
         .then(res => {                
             dispatch(loadTimezones(res));
@@ -35,9 +39,7 @@ const ClockDashboard = () => {
             setIsLoaded(true);
         })
         .catch(() => setIsError(true));
-
-        return () => clearInterval(interval);
-    }, [])
+    }, [dispatch, loadTimezones, provider])
 
     if(isError) {
         return <ErrorComponent />

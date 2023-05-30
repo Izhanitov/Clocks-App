@@ -30,17 +30,11 @@ const Clocks = (Props: ClocksProps) => {
         setSelectedTimezone(key);
     }
 
-    const menuItems = useMemo((): MenuItem[] => {
-        const menuItems: MenuItem[] = [];
-        
-        (timezones as TimezoneDto[]).forEach(item => {
-            menuItems.push({
-                name: item.name,
-                key: item.timezone
-            })
-        })
-
-        return menuItems;
+    const menuItems = useMemo((): MenuItem[] => {        
+        return timezones.map(timeZone => ({
+            name: timeZone.name,
+            key: timeZone.timezone
+        }));
     }, [timezones])
 
     return (
